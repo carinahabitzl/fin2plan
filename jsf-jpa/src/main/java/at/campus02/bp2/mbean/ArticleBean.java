@@ -26,7 +26,7 @@ public class ArticleBean {
 	
 	public ArticleBean(){
 	}
-
+//
 	@PostConstruct
 	public void createEntityManager() {
 		entityManager = EntityManagerFactoryProvider.get().createEntityManager();
