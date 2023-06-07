@@ -25,6 +25,30 @@ public class Category implements Serializable {
 	private CategoryType type;
 	
 	private Color color;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public CategoryType getType() {
+		return type;
+	}
+
+	public void setType(CategoryType type) {
+		this.type = type;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
 	
 	
 	
