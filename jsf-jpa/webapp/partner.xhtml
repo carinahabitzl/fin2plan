@@ -11,42 +11,42 @@
 		Partner
 	</ui:define>
 	
-	<p:fieldset legend="Kategorie anlegen" style="margin-bottom:20px">
-		<p:inputText id="input" label="Kategoriename" value="${categoryBean.newCategory.name}"/>
-		<p:selectOneMenu label="CategoryType" value="${categoryBean.newCategory.type}">
-            <f:selectItems value="#{categoryBean.categoryTypeList}" var="type" itemLabel="#{type}" itemValue="#{type}" />
-        </p:selectOneMenu>
-		<p:commandButton value="Speichern" actionListener="${categoryBean.save}" update="messages,categoryList,input" />
+	<p:fieldset legend="Partner anlegen" style="margin-bottom:20px">
+		<p:inputText id="input" label="Partnername" value="${partnerBean.newPartner.name}"/>
+		<p:selectOneMenu label="Kategorie" value="${partnerBean.newPartner.category}">
+                <f:selectItems value="#{categoryBean.categoryList}" var="category" itemLabel="#{category.name}" itemValue="#{category}" />
+            </p:selectOneMenu>
+		<p:commandButton value="Speichern" actionListener="${partnerBean.save}" update="messages,partnerList,input" />
 	</p:fieldset>
 
-	<p:dataTable id="categoryList" value="#{categoryBean.categoryList}" var="category">
+	<p:dataTable id="partnerList" value="#{partnerBean.partnerList}" var="partner">
 		<p:column>
 			<f:facet name="header">
-				<h:outputText value="Kategorienummer"></h:outputText>
+				<h:outputText value="Partnernummer"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{category.id}"></h:outputText>
+			<h:outputText value="#{partner.id}"></h:outputText>
 		</p:column>
 		<p:column>
 			<f:facet name="header">
 				<h:outputText value="Bezeichnung"></h:outputText>
 			</f:facet>
-			<h:outputText value="#{category.name}"></h:outputText>
+			<h:outputText value="#{partner.name}"></h:outputText>
 		</p:column>
 		<p:column>
-        <f:facet name="header">
-            <h:outputText value="Typ der Kategorie" />
-        </f:facet>
-        <h:outputText value="#{category.type}" />
-    </p:column>
+			<f:facet name="header">
+				<h:outputText value="Kategorie"></h:outputText>
+			</f:facet>
+			<h:outputText value="#{partner.category.name}"></h:outputText>
+		</p:column>
     <p:column>
         <f:facet name="header">
             <h:outputText value="Aktionen" />
         </f:facet>
-        <p:commandLink actionListener="#{categoryBean.editCategory(category)}">
+        <p:commandLink actionListener="#{partnerBean.editPartner(partner)}">
             <i class="pi pi-pencil" style="color: blue;"></i>
         </p:commandLink>
     	<p:spacer width="20" />
-        <p:commandLink actionListener="#{categoryBean.deleteCategory(category)}" update="categoryList">
+        <p:commandLink actionListener="#{partnerBean.deletePartner(partner)}" update="partnerList">
             <i class="pi pi-trash" style="color: red;"></i>
         </p:commandLink>
     </p:column>

@@ -24,6 +24,8 @@ public class Partner implements Serializable {
 	
 	private String name;
 	
+	@OneToOne
+    @JoinColumn(name = "category_id")
 	private Category category;
 
 	
@@ -44,7 +46,10 @@ public class Partner implements Serializable {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
 	
 	
 
