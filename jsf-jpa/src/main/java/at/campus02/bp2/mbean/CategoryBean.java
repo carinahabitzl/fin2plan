@@ -68,7 +68,7 @@ public class CategoryBean {
 	public void setNewCategory(Category newCategory) {
 		this.newCategory = newCategory;
 	}
-	
+		
 	public List<CategoryType> getCategoryTypeList() {
         return categoryTypeList;
     }
@@ -76,8 +76,11 @@ public class CategoryBean {
     public void setCategoryTypeList(List<CategoryType> categoryTypeList) {
         this.categoryTypeList = categoryTypeList;
     }
-    
-    public void deleteCategory(Category category) {
+	
+	public void editCategory(Category category) {		
+	}
+	
+	public void deleteCategory(Category category) {
         EntityTransaction transaction = entityManager.getTransaction();
         
         try {

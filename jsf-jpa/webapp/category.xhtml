@@ -42,6 +42,10 @@
         <f:facet name="header">
             <h:outputText value="Aktionen" />
         </f:facet>
+        <p:commandLink actionListener="#{categoryBean.editCategory(category)}">
+            <i class="pi pi-pencil" style="color: blue;"></i>
+        </p:commandLink>
+    	<p:spacer width="20" />
         <p:commandLink actionListener="#{categoryBean.deleteCategory(category)}" update="categoryList">
             <i class="pi pi-trash" style="color: red;"></i>
         </p:commandLink>

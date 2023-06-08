@@ -31,7 +31,6 @@ public class Category implements Serializable {
 	@JoinColumn(name = "color_id")
 	private Color color;
 
-	
 
 	//Getter und Setter
 	
@@ -67,10 +66,5 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 	
-	
-	
-	
-	
-
 	
 }
