@@ -12,11 +12,11 @@
 	</ui:define>
 	
 	<p:fieldset legend="Kategorie anlegen" style="margin-bottom:20px">
-		<p:inputText id="input" label="Kategoriename" value="${categoryBean.newCategory.name}"/>
+		<p:inputText id="categoryName" label="Kategoriename" value="${categoryBean.newCategory.name}"/>
 		<p:selectOneMenu label="CategoryType" value="${categoryBean.newCategory.type}">
             <f:selectItems value="#{categoryBean.categoryTypeList}" var="type" itemLabel="#{type}" itemValue="#{type}" />
         </p:selectOneMenu>
-		<p:commandButton value="Speichern" actionListener="${categoryBean.save}" update="messages,categoryList,input" />
+		<p:commandButton value="Speichern" actionListener="${categoryBean.save}" update="messages,categoryList,categoryName" />
 	</p:fieldset>
 
 	<p:dataTable id="categoryList" value="#{categoryBean.categoryList}" var="category">

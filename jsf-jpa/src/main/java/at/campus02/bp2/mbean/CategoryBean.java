@@ -51,6 +51,7 @@ public class CategoryBean {
 		entityManager.merge(newCategory);
 		transaction.commit();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Die Kategorie " + newCategory.getName() + " wurde gespeichert"));
+        //newCategory = new Category();
         
 	}
 

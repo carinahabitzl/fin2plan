@@ -80,7 +80,7 @@ public class PartnerBean {
         try {
             transaction.begin();
             
-            // Kategorie aus der Datenbank laden
+            // Partner aus der Datenbank laden
             Partner partnerToDelete = entityManager.find(Partner.class, partner.getId());
             
             if (partnerToDelete != null) {

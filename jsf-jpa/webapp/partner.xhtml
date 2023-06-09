@@ -14,8 +14,8 @@
 	<p:fieldset legend="Partner anlegen" style="margin-bottom:20px">
 		<p:inputText id="input" label="Partnername" value="${partnerBean.newPartner.name}"/>
 		<p:selectOneMenu label="Kategorie" value="${partnerBean.newPartner.category}">
-                <f:selectItems value="#{categoryBean.categoryList}" var="category" itemLabel="#{category.name}" itemValue="#{category}" />
-            </p:selectOneMenu>
+			<f:selectItems value="#{categoryBean.categoryList}" var="category" itemLabel="#{category.name}" itemValue="#{category}"/>
+		</p:selectOneMenu>
 		<p:commandButton value="Speichern" actionListener="${partnerBean.save}" update="messages,partnerList,input" />
 	</p:fieldset>
 
@@ -46,7 +46,7 @@
             <i class="pi pi-pencil" style="color: blue;"></i>
         </p:commandLink>
     	<p:spacer width="20" />
-        <p:commandLink actionListener="#{partnerBean.deletePartner(partner)}" update="partnerList">
+    	<p:commandLink actionListener="#{partnerBean.deletePartner(partner)}" update="partnerList">
             <i class="pi pi-trash" style="color: red;"></i>
         </p:commandLink>
     </p:column>
