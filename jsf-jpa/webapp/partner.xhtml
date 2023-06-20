@@ -13,31 +13,35 @@
 	
 	<p:fieldset legend="Partner anlegen" style="margin-bottom:20px">
 		<p:inputText id="input" label="Partnername" value="${partnerBean.newPartner.name}"/>
-		<p:selectOneMenu label="Kategorie" value="${partnerBean.newPartner.category}">
-			<f:selectItems value="#{categoryBean.categoryList}" var="category" itemLabel="#{category.name}" itemValue="#{category}"/>
+		<p:selectOneMenu label="Kategorie" value="${partnerBean.newPartner.category}" converter="#{categoryConverter}" >
+			<f:selectItems value="#{categoryBean.categoryList}" var="category" itemLabel="#{category.name}" itemValue="#{category}" />
 		</p:selectOneMenu>
+		 
 		<p:commandButton value="Speichern" actionListener="${partnerBean.save}" update="messages,partnerList,input" />
 	</p:fieldset>
 
 	<p:dataTable id="partnerList" value="#{partnerBean.partnerList}" var="partner">
 		<p:column>
 			<f:facet name="header">
-				<h:outputText value="Partnernummer"></h:outputText>
+				<h:outputText value="Partnernummer"/>
 			</f:facet>
-			<h:outputText value="#{partner.id}"></h:outputText>
+			<h:outputText value="#{partner.id}"/>
 		</p:column>
+		
 		<p:column>
 			<f:facet name="header">
-				<h:outputText value="Bezeichnung"></h:outputText>
+				<h:outputText value="Bezeichnung"/>
 			</f:facet>
-			<h:outputText value="#{partner.name}"></h:outputText>
+			<h:outputText value="#{partner.name}"/>
 		</p:column>
+		
 		<p:column>
 			<f:facet name="header">
-				<h:outputText value="Kategorie"></h:outputText>
+				<h:outputText value="Kategorie"/>
 			</f:facet>
-			<h:outputText value="#{partner.category.name}"></h:outputText>
+			<h:outputText value="#{partner.category.name}"/>
 		</p:column>
+		 
     <p:column>
         <f:facet name="header">
             <h:outputText value="Aktionen" />

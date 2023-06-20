@@ -1,6 +1,7 @@
 package at.campus02.bp2.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,20 +21,21 @@ public class Partner implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	private Long id;
+	private int id;
 	
 	private String name;
 	
 	@OneToOne
     @JoinColumn(name = "category_id")
 	private Category category;
-
 	
+
 	// Getter und Setter
 	
 	public String getName() {
 		return name;
 	}
+
 
 	public void setName(String name) {
 		this.name = name;
@@ -47,11 +49,25 @@ public class Partner implements Serializable {
 		this.category = category;
 	}
 
-	public Long getId() {
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public int getId() {
 		return id;
 	}
 	
-	
-
+	@Override
+	  public boolean equals(Object o) {
+	    if (this == o) {
+	      return true;
+	    }
+	    if (o == null || getClass() != o.getClass()) {
+	      return false;
+	    }
+	    Partner partner = (Partner) o;
+	    return id == partner.id && Objects.equals(name, partner.name);
+	  }
 	
 }

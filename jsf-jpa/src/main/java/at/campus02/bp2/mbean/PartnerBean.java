@@ -1,7 +1,6 @@
 package at.campus02.bp2.mbean;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;

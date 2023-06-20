@@ -21,13 +21,17 @@ public class Transaction implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
-	private Long id;
+	private int id;
 	
+	private String description;
+
 	private Date date;
 	
+	@OneToOne
+    @JoinColumn(name = "partner_id")
 	private Partner partner;
 	
-	private Category category;
+	/*private Category category;*/
 	
 	private double amount;
 
@@ -51,13 +55,6 @@ public class Transaction implements Serializable {
 		this.partner = partner;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
 
 	public double getAmount() {
 		return amount;
@@ -66,7 +63,21 @@ public class Transaction implements Serializable {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
-	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 }

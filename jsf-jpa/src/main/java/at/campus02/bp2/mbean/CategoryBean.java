@@ -54,7 +54,7 @@ public class CategoryBean {
         //newCategory = new Category();
         
 	}
-
+	
 	public List<Category> getCategoryList() {
 		loadCategoriesFromDB();
 		return categoryList;

@@ -1,6 +1,7 @@
 package at.campus02.bp2.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	@Column(name = "ID", unique = true, nullable = false)
-	private Long id;
+	private int id;
 	
 	
 	private String name;
@@ -58,13 +59,25 @@ public class Category implements Serializable {
 		this.color = color;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
+
+	@Override
+	  public boolean equals(Object o) {
+	    if (this == o) {
+	      return true;
+	    }
+	    if (o == null || getClass() != o.getClass()) {
+	      return false;
+	    }
+	    Category category = (Category) o;
+	    return id == category.id && Objects.equals(name, category.name);
+	  }
 	
-	
+
 }

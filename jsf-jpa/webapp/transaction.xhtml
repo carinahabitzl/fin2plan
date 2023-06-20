@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+                
+                
+	<ui:define name="header">
+		Partner
+	</ui:define>
+	
+	<p:fieldset legend="Transaktion anlegen" style="margin-bottom:20px">
+		
+		<p:datePicker id="date" label="Datum" type="dd.mm.yyyy" value="${transactionBean.newTransaction.date}"/>
+		<p:inputText id="input" label="Beschreibung" value="${transactionBean.newTransaction.description}"/>
+		<p:inputText id="amount" label="Betrag" value="${transactionBean.newTransaction.amount}"/>
+		
+		 
+		<p:selectOneMenu label="Partner" value="${transactionBean.newTransaction.partner}" converter="#{partnerConverter}" >
+			<f:selectItems value="#{partnerBean.partnerList}" var="partner" itemLabel="#{partner.name}" itemValue="#{partner}" />
+		</p:selectOneMenu>
+		
+		
+		<p:commandButton value="Speichern" actionListener="${transactionBean.save}" update="messages,transactionList,input" />
+	</p:fieldset>
+
+	<p:dataTable id="transactionList" value="#{transactionBean.transactionList}" var="transaction">
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Transaktionsnummer"/>
+			</f:facet>
+			<h:outputText value="#{transaction.id}"/>
+		</p:column>
+		
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Datum"/>
+			</f:facet>
+			<h:outputText value="#{transaction.date}"> <f:convertDateTime pattern="d.MM.yyyy" timeZone="CET"/> </h:outputText>
+			
+		</p:column>
+		
+		<p:column>
+			<f:facet name="amount">
+				<h:outputText value="Betrag"/>
+			</f:facet>
+			<h:outputText value="#{transaction.amount}"/>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Beschreibung"/>
+			</f:facet>
+			<h:outputText value="#{transaction.description}"/>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Partner"/>
+			</f:facet>
+			<h:outputText value="#{transaction.partner.name}"/>
+		</p:column>
+		
+		<p:column>
+			<f:facet name="header">
+				<h:outputText value="Kategorie"/>
+			</f:facet>
+			<h:outputText value="#{transaction.partner.category.name}"/>
+		</p:column>
+    	
+    	<p:column>
+        <f:facet name="header">
+            <h:outputText value="Aktionen" />
+        </f:facet>
+        <p:commandLink actionListener="#{transactionBean.editTransaction(transaction)}">
+            <i class="pi pi-pencil" style="color: blue;"></i>
+        </p:commandLink>
+    	<p:spacer width="20" />
+    	<p:commandLink actionListener="#{transactionBean.deleteTransaction(transaction)}" update="transactionList">
+            <i class="pi pi-trash" style="color: red;"></i>
+        </p:commandLink>
+    	</p:column>
+    	   	
+	</p:dataTable>
+	
+	</html>
+</ui:composition>
