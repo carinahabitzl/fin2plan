@@ -5,20 +5,46 @@
         xmlns:p="http://primefaces.org/ui">
         
 	<h:head>
-	    <title>BP2 Showcase</title>
+	    <title>Fin2Plan</title>
+	    <style>
+	    	body {
+	    		    background-image: url("background.jpg");
+   					background-size: cover;
+	    	}
+	    </style>
 	</h:head>
 
 	<h:body>
-		<h1>
-        	<ui:insert name="header" />
-        </h1>
+       		
+        <!-- MENU -->
+        <p:menubar>
+			<p:menuitem  value="Dashboard" icon="pi pi-chart-bar" url="dashboard.xhtml"/>
+			<p:menuitem value="Transaktionen" icon="pi pi-arrow-right-arrow-left" url="transaction.xhtml"/>
+			<p:menuitem value="Partner" icon="pi pi-users" url="partner.xhtml"/>
+			<p:menuitem value="Kategorien" icon="pi pi-star" url="category.xhtml"/>
+			<p:menuitem value="Upload" icon="pi pi-upload" url="upload.xhtml"/>
+			
+			<f:facet name="options">
+                <div class="ui-input-icon-left mr-2">
+                    <i class="pi pi-fw pi-search" />
+                    <p:inputText placeholder="Search"/>
+                </div>
+                <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" href="login.xhtml"/>
+            </f:facet>
+		</p:menubar>
         
         <h:form>
 			<p:growl showDetail="true" id="messages" />
 	        <ui:insert />
 	    </h:form>
+	    
+		<h1>
+ 			<ui:insert name="header" />
+    	</h1>
         
 	    <ui:insert name="footer" />
 	</h:body>
+	
+
 	
 </h:html>
