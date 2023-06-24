@@ -19,37 +19,50 @@
 		<p:commandButton value="Speichern" actionListener="${categoryBean.save}" update="messages,categoryList,categoryName" />
 	</p:fieldset>
 
-	<p:dataTable id="categoryList" value="#{categoryBean.categoryList}" var="category">
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Kategorienummer"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{category.id}"></h:outputText>
-		</p:column>
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Bezeichnung"></h:outputText>
-			</f:facet>
-			<h:outputText value="#{category.name}"></h:outputText>
-		</p:column>
-		<p:column>
-        <f:facet name="header">
-            <h:outputText value="Typ der Kategorie" />
-        </f:facet>
-        <h:outputText value="#{category.type}" />
-    </p:column>
-    <p:column>
-        <f:facet name="header">
-            <h:outputText value="Aktionen" />
-        </f:facet>
-        <p:commandLink actionListener="#{categoryBean.editCategory(category)}">
-            <i class="pi pi-pencil" style="color: blue;"></i>
-        </p:commandLink>
-    	<p:spacer width="20" />
-        <p:commandLink actionListener="#{categoryBean.deleteCategory(category)}" update="categoryList">
-            <i class="pi pi-trash" style="color: red;"></i>
-        </p:commandLink>
-    </p:column>
+	<p:dataTable 	id="categoryList"
+					value="#{categoryBean.categoryList}"
+					var="category"
+					editable="true"
+					editMode="cell"
+					widgetVar="cellCategories">
+					
+		<p:ajax event="cellEdit" update="categoryList"/>
+		
+		<p:column headerText="Kategorienummer">
+				<h:outputText value="#{category.id}"/>
+			</p:column>
+		
+		<p:column headerText="Bezeichnung" filterBy="#{category.name}" filterMatchMode="contains">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{category.name}"/>
+					</f:facet>
+					<f:facet name="input">
+						<h:inputText value="#{category.name}"/>
+					</f:facet>
+				</p:cellEditor>	
+			</p:column>
+		
+		<p:column headerText="Typ der Kategorie" filterBy="#{category.type}" filterMatchMode="contains">
+		        <p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{category.type}"/>
+					</f:facet>
+					<f:facet name="input">
+						<p:selectOneMenu value="${categoryBean.newCategory.type}">
+				            <f:selectItems value="#{categoryBean.categoryTypeList}" var="type" itemLabel="#{type}" itemValue="#{type}" />
+				        </p:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>	
+		    </p:column>
+    	
+    	<p:column headerText="Aktionen">
+		        <p:commandLink actionListener="#{categoryBean.deleteCategory(category)}" update="categoryList">
+		        	<i class="pi pi-trash" style="color: red;"></i>
+		        </p:commandLink>
+		    </p:column>
+    
+    
 	</p:dataTable>
 	
 	</html>

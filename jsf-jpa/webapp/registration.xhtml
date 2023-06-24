@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+                
+	<html xmlns="http://www.w3.org/1999/xhtml" 
+			xmlns:h="http://java.sun.com/jsf/html" 
+			xmlns:f="http://java.sun.com/jsf/core" 
+			xmlns:ui="http://java.sun.com/jsf/facelets" 
+			xmlns:p="http://primefaces.org/ui">
+                
+                
+		<ui:define name="header">Registration</ui:define>
+		
+		<h:head>
+			<title>Fin2Plan - Registrierung</title>
+			<link rel="stylesheet" type="text/css" href="styles.css"/>			
+		</h:head>
+		
+		<h:body>
+			<div class="container">
+				<form id="createAccount">
+		            <h1 class="form__title">Registrierung</h1>
+		            <div class="form__message form__message--error"></div>
+		            <div class="form__input-group">
+		                <p:inputText styleClass="form__input" value="#{loginBean.email}" placeholder="E-Mail Adresse"/>
+		                <div class="form__input-error-message"></div>
+		            </div>
+		            <div class="form__input-group">
+		                <p:password styleClass="form__input" placeholder="Passwort"/>
+		                <div class="form__input-error-message"></div>
+		            </div>
+		            <div class="form__input-group">
+		                <p:password styleClass="form__input" value="#{loginBean.password}" placeholder="Passwort bestätigen"/>
+		                <div class="form__input-error-message"></div>
+		            </div>
+		            <p:button href="dashboard.xhtml" styleClass="form__button" value="Erledigt" />
+		            <p class="form__text">
+		                Haben Sie bereits ein Profil? <a  class="form__link" href="login.xhtml" id="linkLogin"><strong>Anmelden</strong></a>
+		            </p>
+        			</form>
+			</div>
+		</h:body>
+				
+	</html>
+</ui:composition>

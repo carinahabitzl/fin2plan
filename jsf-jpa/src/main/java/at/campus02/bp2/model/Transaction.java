@@ -35,6 +35,12 @@ public class Transaction implements Serializable {
 	
 	private double amount;
 
+	/*getCategory of Transaction*/
+	
+	
+	public Category getCategory() {
+		return this.getPartner().getCategory();
+	}
 	
 	
 	// Getter und Setter

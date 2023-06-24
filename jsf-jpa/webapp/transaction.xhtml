@@ -8,8 +8,15 @@
                 
                 
 	<ui:define name="header">
-		Partner
+		Transaktion
 	</ui:define>
+	
+	<style>
+			.table {
+				width: 95%;
+				margin-top: 30px;	
+			}
+		</style>
 	
 	<p:fieldset legend="Transaktion anlegen" style="margin-bottom:20px">
 		
@@ -26,7 +33,7 @@
 		<p:commandButton value="Speichern" actionListener="${transactionBean.save}" update="messages,transactionList,input" />
 	</p:fieldset>
 
-	<p:dataTable id="transactionList" value="#{transactionBean.transactionList}" var="transaction">
+	<p:dataTable id="transactionList" value="#{transactionBean.transactionList}" var="transaction" styleClass="table">
 		
 		<p:column>
 			<f:facet name="header">
