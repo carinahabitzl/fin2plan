@@ -26,12 +26,9 @@ public class PartnerBean {
 	private List<Partner> partnerList = new ArrayList<Partner>();
 	private List<Category> categoryList;
 	
-	public List<Category> getCategoryList() {
-		return categoryList;
-	}
 	public PartnerBean(){
 	}
-//
+
 	@PostConstruct
 	public void createEntityManager() {
 		entityManager = EntityManagerFactoryProvider.get().createEntityManager();
@@ -54,7 +51,11 @@ public class PartnerBean {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der Partner " + newPartner.getName() + " wurde gespeichert"));
         
 	}
-
+	
+	public List<Category> getCategoryList() {
+		return categoryList;
+	}
+	
 	public List<Partner> getPartnerList() {
 		loadPartnerFromDB();
 		return partnerList;

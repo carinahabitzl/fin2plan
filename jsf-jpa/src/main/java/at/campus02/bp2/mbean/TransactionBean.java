@@ -26,12 +26,9 @@ public class TransactionBean {
 	private List<Transaction> transactionList = new ArrayList<Transaction>();
 	private List<Partner> partnerList;
 	
-	public List<Partner> getPartnerList() {
-		return partnerList;
-	}
 	public TransactionBean(){
 	}
-//
+
 	@PostConstruct
 	public void createEntityManager() {
 		entityManager = EntityManagerFactoryProvider.get().createEntityManager();
@@ -54,7 +51,11 @@ public class TransactionBean {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Die Transaction " + newTransaction.getId() + " wurde gespeichert"));
         
 	}
-
+	
+	public List<Partner> getPartnerList() {
+		return partnerList;
+	}
+	
 	public List<Transaction> getTransactionList() {
 		loadTransactionFromDB();
 		return transactionList;
