@@ -3,6 +3,7 @@ package at.campus02.bp2.mbean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -81,24 +82,18 @@ public class Dashboard {
 	}
 	
 	// Funktioniert nicht, wenn in "createDonutModel" aufgerufen
-	private HashMap<String, Double> totalExpencesPerCategory() {
-		HashMap<String, Double> result = new HashMap<>();
-		
-		for (Transaction t : transactionList) {
-			if (t.getCategory().getType().equals(CategoryType.EXPENSE)) {
-				String category = t.getCategory().getName();
-				double value = result.get(category);
-				if (!result.containsKey(category)) {
-					result.put(category, value);
-				}
-				else {
-					result.put(category, value + t.getAmount());
-				}
-			}
-		}
-		
-		return result;
-	}
+	/*
+	 * private HashMap<String, Double> totalExpencesPerCategory() { HashMap<String,
+	 * Double> result = new HashMap<>();
+	 * 
+	 * for (Transaction t : transactionList) { if
+	 * (t.getCategory().getType().equals(CategoryType.EXPENSE)) { String category =
+	 * t.getCategory().getName(); double value = result.get(category); if
+	 * (!result.containsKey(category)) { result.put(category, value); } else {
+	 * result.put(category, value + t.getAmount()); } } }
+	 * 
+	 * return result; }
+	 */
 	
 	public void createDonutModel() {
         donutModel = new DonutChartModel();
@@ -106,19 +101,22 @@ public class Dashboard {
         
         DonutChartDataSet dataSet = new DonutChartDataSet();
         
-        List<String> labels = new ArrayList<>();
+        HashSet<String> categories = new HashSet<>();
         for (Transaction t : transactionList) {
         	if (t.getCategory().getType().equals(CategoryType.EXPENSE)) {
-        		labels.add(t.getCategory().getName());
+        			categories.add(t.getCategory().getName());
 			}
         }
-        data.setLabels(labels);
-        
+                
         List<Number> values = new ArrayList<>();        
-        for (Transaction t : transactionList) {
-        	if (t.getCategory().getType().equals(CategoryType.EXPENSE)) {
-        		values.add(t.getAmount());
-			}
+        for (String s : categories) {
+        		double sum = 0;
+    			for (Transaction t : transactionList) {
+    				if (t.getCategory().getName().equals(s)) {
+						sum += t.getAmount();
+					}
+    			}
+    			values.add(sum);
         }
         dataSet.setData(values);
 
@@ -129,7 +127,11 @@ public class Dashboard {
         dataSet.setBackgroundColor(bgColors);
 
         data.addChartDataSet(dataSet);
-        
+        List<String> labels = new ArrayList<>();
+        for (String s : categories) {
+        		labels.add(s);
+        }
+        data.setLabels(labels);
 
         donutModel.setData(data);
 	}
