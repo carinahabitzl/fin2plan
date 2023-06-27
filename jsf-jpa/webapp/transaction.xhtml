@@ -13,7 +13,7 @@
 		<p:selectOneMenu style="margin-right:20px; margin-bottom: 5px;" label="Partner" value="${transactionBean.newTransaction.partner}" converter="#{partnerConverter}" >
 			<f:selectItems value="#{partnerBean.partnerList}" var="partner" itemLabel="#{partner.name}" itemValue="#{partner}" />
 		</p:selectOneMenu>	
-		<p:commandButton value="Speichern" actionListener="${transactionBean.save}" update="messages,transactionList,input" />
+		<p:commandButton value="Speichern" actionListener="${transactionBean.save}" update="messages,transactionList,input,amount,date" />
 	</p:fieldset>
 
 	<p:dataTable id="transactionList" value="#{transactionBean.transactionList}" var="transaction" editable="true">

@@ -49,7 +49,7 @@ public class PartnerBean {
 		entityManager.merge(newPartner);
 		transaction.commit();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Der Partner " + newPartner.getName() + " wurde gespeichert"));
-        
+        newPartner = new Partner();
 	}
 	
 	public List<Category> getCategoryList() {
