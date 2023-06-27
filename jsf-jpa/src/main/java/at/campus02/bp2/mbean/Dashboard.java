@@ -104,7 +104,7 @@ public class Dashboard {
 	}
 	
 	
-	public double totalCashflow() {
+	public double getTotalCashflow() {
 		return getTotalIncome() - getTotalExpenses();
 	}
 	
