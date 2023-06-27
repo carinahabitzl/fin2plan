@@ -23,7 +23,7 @@
 		<p:column headerText="Transaktion-Nr">
 			<h:outputText value="#{transaction.id}"/>
 		</p:column>
-		<p:column headerText="Datum">
+		<p:column headerText="Datum" filterBy="#{transaction.date}">
 			<p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{transaction.date}">
@@ -37,7 +37,7 @@
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
-		<p:column headerText="Betrag" sortBy="#{transaction.amount}">
+		<p:column headerText="Betrag" filterBy="#{transaction.amount}">
 			<p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{transaction.amount}"/>	
@@ -47,7 +47,7 @@
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
-		<p:column headerText="Beschreibung">
+		<p:column headerText="Beschreibung" filterBy="#{transaction.description}">
 			<p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{transaction.description}"/>
@@ -57,7 +57,7 @@
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
-		<p:column headerText="Partner">
+		<p:column headerText="Partner" filterBy="#{transaction.partner.name}">
 			<p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{transaction.partner.name}"/>
@@ -69,7 +69,7 @@
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
-		<p:column headerText="Kategorie">
+		<p:column headerText="Kategorie" filterBy="#{transaction.partner.category.name}">
 			<p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{transaction.partner.category.name}"/>

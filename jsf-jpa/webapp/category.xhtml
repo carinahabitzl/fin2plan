@@ -20,7 +20,7 @@
 		<p:column headerText="Kategorie-Nr">
 			<h:outputText value="#{category.id}"/>
 		</p:column>
-		<p:column headerText="Bezeichnung">
+		<p:column headerText="Bezeichnung" filterBy="#{category.name}">
 			<p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{category.name}"/>
@@ -30,7 +30,7 @@
 				</f:facet>
 			</p:cellEditor>	
 		</p:column>
-		<p:column headerText="Typ der Kategorie">
+		<p:column headerText="Typ der Kategorie" filterBy="#{category.type}">
 	        <p:cellEditor>
 				<f:facet name="output">
 					<h:outputText value="#{category.type}"/>
