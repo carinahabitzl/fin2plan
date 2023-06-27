@@ -75,7 +75,12 @@ public class Dashboard {
 	}
 
 
+	public void setTransactionList() {
+		this.transactionList = entityManager.createQuery("from Transaction", Transaction.class).getResultList();
+	}
+
 	public double getTotalIncome() {
+		this.setTransactionList();
 		double result = 0;
 		for (Transaction t : transactionList) {
 			if (t.getCategory().getType() == CategoryType.INCOME) {
@@ -87,6 +92,7 @@ public class Dashboard {
 	}
 	
 	public double getTotalExpenses() {
+		this.setTransactionList();
 		double result = 0;
 		for (Transaction t : transactionList) {
 			if (t.getCategory().getType() == CategoryType.EXPENSE) {
@@ -158,6 +164,8 @@ public class Dashboard {
 	}
 
 	public DonutChartModel getDonutModel() {
+		this.setTransactionList();
+		createDonutModel();
 		return donutModel;
 	}
 
@@ -209,7 +217,9 @@ public class Dashboard {
     }
 
     public PieChartModel getPieModel() {
-		return pieModel;
+    	this.setTransactionList();
+		createPieModel();
+    	return pieModel;
 	}
 
 	public void setPieModel(PieChartModel pieModel) {
@@ -272,6 +282,8 @@ public class Dashboard {
     }
 
 	public LineChartModel getLineModel() {
+		this.setTransactionList();
+		createLineModel();
 		return lineModel;
 	}
 
@@ -378,6 +390,8 @@ public class Dashboard {
     }
 
 	public BarChartModel getBarModel() {
+		this.setTransactionList();
+		createBarModel();
 		return barModel;
 	}
 

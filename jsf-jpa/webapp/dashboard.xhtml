@@ -9,15 +9,21 @@
 	        <div class="grid">
 	            <p:card styleClass="card">
 		        		<f:facet name="title">Einkommen</f:facet>
-		        		<h:outputText  value="#{dashboard.totalIncome}"/>
+		        		<h:outputText  value="#{dashboard.totalIncome}">
+		        			<f:convertNumber pattern="€ #,##0.00"/>
+		        		</h:outputText>
 		        </p:card>
 		         <p:card styleClass="card">
 		        		<f:facet name="title">Ausgaben</f:facet>
-		        		<h:outputText value="#{dashboard.totalExpenses}"/>
+		        		<h:outputText value="#{dashboard.totalExpenses}">
+		        			<f:convertNumber pattern="€ #,##0.00"/>
+		        		</h:outputText>
 		        </p:card>
 		        <p:card styleClass="card">
 		        		<f:facet name="title">Cashflow</f:facet>
-		        		<h:outputText value="#{dashboard.totalCashflow()}"/>
+		        		<h:outputText value="#{dashboard.totalCashflow()}">
+		        			<f:convertNumber pattern="€ #,##0.00"/>
+		        		</h:outputText>
 		        </p:card>   
 				<div class="card row-two">
 				    <p:lineChart model="#{dashboard.lineModel}"/>
