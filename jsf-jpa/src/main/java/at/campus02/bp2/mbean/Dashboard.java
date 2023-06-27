@@ -236,7 +236,7 @@ public class Dashboard {
         List<Object> values = new ArrayList<>();
         
        
-        for (int i = 1; i < 13; i++) { 
+        for (int i = 0; i < 13; i++) { 
         		double sum = 0;
 			for (Transaction t : transactionList) {
 				if (t.getCategory().getType().equals(CategoryType.INCOME)
@@ -303,7 +303,7 @@ public class Dashboard {
 
         List<Number> values = new ArrayList<>();
         
-        for (int i = 1; i < 13; i++) { 
+        for (int i = 0; i < 13; i++) { 
     		double sum = 0;
 		for (Transaction t : transactionList) {
 			if (t.getCategory().getType().equals(CategoryType.EXPENSE)

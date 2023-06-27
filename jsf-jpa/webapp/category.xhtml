@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
                 
-	<p:fieldset legend="Kategorie anlegen" style="margin-bottom:20px; margin-top:20px; width:30%;">
+	<p:fieldset legend="Kategorie anlegen" style="margin-bottom:20px; margin-top:20px;">
 		<p:inputText placeholder="Name" style="margin-right:20px" id="categoryName" label="Kategoriename" value="${categoryBean.newCategory.name}"/>
 		<p:selectOneMenu style="margin-right:20px; margin-bottom: 5px;" label="CategoryType" value="${categoryBean.newCategory.type}">
             <f:selectItems value="#{categoryBean.categoryTypeList}" var="type" itemLabel="#{type}" itemValue="#{type}" />

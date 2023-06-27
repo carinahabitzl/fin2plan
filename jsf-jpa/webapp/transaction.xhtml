@@ -6,7 +6,7 @@
                 template="/WEB-INF/template.xhtml">
 
 	
-	<p:fieldset legend="Transaktion anlegen" style="margin-bottom:20px; margin-top:20px; width:60%;">	
+	<p:fieldset legend="Transaktion anlegen" style="margin-bottom:20px; margin-top:20px;">	
 		<p:datePicker style="margin-right:20px" placeholder="Datum" id="date" label="Datum" type="dd.mm.yyyy" value="${transactionBean.newTransaction.date}"/>
 		<p:inputText style="margin-right:20px" placeholder="Text" id="input" label="Beschreibung" value="${transactionBean.newTransaction.description}"/>
 		<p:inputText style="margin-right:20px" id="amount" label="Betrag" value="${transactionBean.newTransaction.amount}"/>
