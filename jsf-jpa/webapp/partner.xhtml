@@ -4,57 +4,51 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-                
-                
-	<ui:define name="header">
-		Partner
-	</ui:define>
-	
-	<p:fieldset legend="Partner anlegen" style="margin-bottom:20px">
-		<p:inputText id="input" label="Partnername" value="${partnerBean.newPartner.name}"/>
-		<p:selectOneMenu label="Kategorie" value="${partnerBean.newPartner.category}" converter="#{categoryConverter}" >
+
+	<p:fieldset legend="Partner anlegen" style="margin-bottom:20px; margin-top:20px; width:30%;">
+		<p:inputText style="margin-right:20px" id="input" label="Partnername" value="${partnerBean.newPartner.name}"/>
+		<p:selectOneMenu style="margin-right:20px; margin-bottom: 5px;" label="Kategorie" value="${partnerBean.newPartner.category}" converter="#{categoryConverter}" >
 			<f:selectItems value="#{categoryBean.categoryList}" var="category" itemLabel="#{category.name}" itemValue="#{category}" />
 		</p:selectOneMenu>
-		 
 		<p:commandButton value="Speichern" actionListener="${partnerBean.save}" update="messages,partnerList,input" />
 	</p:fieldset>
 
-	<p:dataTable id="partnerList" value="#{partnerBean.partnerList}" var="partner">
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Partnernummer"/>
-			</f:facet>
+	<p:dataTable id="partnerList" value="#{partnerBean.partnerList}" var="partner" editable="true">
+		<p:ajax event="rowEdit" update="partnerList"/>
+		<p:ajax event="rowEditCancel" update="partnerList"/>
+		
+		<p:column headerText="Partner-Nr">
 			<h:outputText value="#{partner.id}"/>
 		</p:column>
-		
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Bezeichnung"/>
-			</f:facet>
-			<h:outputText value="#{partner.name}"/>
+		<p:column headerText="Bezeichnung">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{partner.name}"/>
+				</f:facet>
+				<f:facet name="input">
+					<h:inputText value="#{partner.name}"/>
+				</f:facet>
+			</p:cellEditor>
 		</p:column>
-		
-		<p:column>
-			<f:facet name="header">
-				<h:outputText value="Kategorie"/>
-			</f:facet>
-			<h:outputText value="#{partner.category.name}"/>
+		<p:column headerText="Kategorie">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{partner.category.name}"/>
+				</f:facet>
+				<f:facet name="input">
+					<p:selectOneMenu value="${partnerBean.newPartner.category}" converter="#{categoryConverter}" >
+						<f:selectItems value="#{categoryBean.categoryList}" var="category" itemLabel="#{category.name}" itemValue="#{category}" />
+					</p:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>	 
+	    <p:column headerText="Aktionen" styleClass="actions">
+	    		<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>
+			<p:spacer width="20" />
+	        <p:commandLink actionListener="#{partnerBean.deletePartner(partner)}" update="partnerList">
+	        		<i class="pi pi-trash" style="color: red;"/>
+	        </p:commandLink>
 		</p:column>
-		 
-    <p:column>
-        <f:facet name="header">
-            <h:outputText value="Aktionen" />
-        </f:facet>
-        <p:commandLink actionListener="#{partnerBean.editPartner(partner)}">
-            <i class="pi pi-pencil" style="color: blue;"></i>
-        </p:commandLink>
-    	<p:spacer width="20" />
-    	<p:commandLink actionListener="#{partnerBean.deletePartner(partner)}" update="partnerList">
-            <i class="pi pi-trash" style="color: red;"></i>
-        </p:commandLink>
-    </p:column>
 	</p:dataTable>
 	
-	</html>
 </ui:composition>

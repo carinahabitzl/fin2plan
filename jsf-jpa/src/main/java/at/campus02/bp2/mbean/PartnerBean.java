@@ -60,6 +60,7 @@ public class PartnerBean {
 		loadPartnerFromDB();
 		return partnerList;
 	}
+	
 	public void setPartnerList(List<Partner> partnerList) {
 		this.partnerList = partnerList;
 	}
@@ -67,6 +68,7 @@ public class PartnerBean {
 	public Partner getNewPartner() {
 		return newPartner;
 	}
+	
 	public void setNewPartner(Partner newPartner) {
 		this.newPartner = newPartner;
 	}

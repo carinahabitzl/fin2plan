@@ -5,38 +5,34 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
                 
-                
-        <ui:define name="header">Dashboard</ui:define>
-        
-        <p:card>
-        		<f:facet name="title">Einkommen</f:facet>
-        		<h:outputText  value="#{dashboard.totalIncome}"></h:outputText>
-        </p:card>
-         <p:card>
-        		<f:facet name="title">Ausgaben</f:facet>
-        		<h:outputText value="#{dashboard.totalExpenses}"></h:outputText>
-        </p:card>
-        <p:card>
-        		<f:facet name="title">Cashflow</f:facet>
-        		<h:outputText value="#{dashboard.totalCashflow()}"></h:outputText>
-        </p:card>
-        
-        <div class="grid">
-    <div class="col-12 lg:col-6 xl:col-4">
-        <div class="card">
-            <p:donutChart model="#{dashboard.donutModel}" style="width: 100%; height: 500px;"/>
+        <div class="flex">
+	        <div class="grid">
+	            <p:card styleClass="card">
+		        		<f:facet name="title">Einkommen</f:facet>
+		        		<h:outputText  value="#{dashboard.totalIncome}"/>
+		        </p:card>
+		         <p:card styleClass="card">
+		        		<f:facet name="title">Ausgaben</f:facet>
+		        		<h:outputText value="#{dashboard.totalExpenses}"/>
+		        </p:card>
+		        <p:card styleClass="card">
+		        		<f:facet name="title">Cashflow</f:facet>
+		        		<h:outputText value="#{dashboard.totalCashflow()}"/>
+		        </p:card>   
+				<div class="card row-two">
+				    <p:lineChart model="#{dashboard.lineModel}"/>
+				</div>
+				<div class="card row-two">
+		            <p:pieChart model="#{dashboard.pieModel}"/>
+		        </div>
+				<div class="card row-three">
+				    <p:barChart model="#{dashboard.barModel}"/>
+				</div>
+		        <div class="card row-three">
+		            <p:donutChart model="#{dashboard.donutModel}"/>
+		      </div>        
         </div>
-    </div>
 </div>
-
-<div class="card">
-    <p:lineChart model="#{dashboard.lineModel}" style="width: 100%; height: 500px;"/>
-</div>
-
-<div class="card">
-    <p:barChart model="#{dashboard.barModel}" style="width: 100%; height: 500px;"/>
-</div>
-          <div class="card">
-            <p:pieChart model="#{dashboard.pieModel}" style="width: 100%; height: 500px;"/>
-        </div>      
+        
+              
 </ui:composition>
