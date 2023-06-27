@@ -40,7 +40,12 @@
 		<p:column headerText="Betrag" filterBy="#{transaction.amount}">
 			<p:cellEditor>
 				<f:facet name="output">
-					<h:outputText value="#{transaction.amount}"/>	
+					<div style="text-align: right; padding-right: 10px;">
+						<h:outputText value="#{transaction.amount}" style="text-align: right; color: #{transaction.partner.category.type == 'EXPENSE' ? 'red' : 'green'};" >
+							<f:convertNumber pattern="€ #,##0.00"/>
+						</h:outputText> 
+					</div>
+
 				</f:facet>
 				<f:facet name="input">
 					<h:inputText value="#{transaction.amount}"/>	
