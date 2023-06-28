@@ -272,10 +272,10 @@ public class Dashboard {
 
         //Options
         LineChartOptions options = new LineChartOptions();
-        Title title = new Title();
-        title.setDisplay(true);
-        title.setText("Line Chart");
-        options.setTitle(title);
+		/*
+		 * Title title = new Title(); title.setDisplay(true);
+		 * title.setText("Einnahmen"); title.setFontSize(24); options.setTitle(title);
+		 */
 
         lineModel.setOptions(options);
         lineModel.setData(data);
@@ -366,20 +366,18 @@ public class Dashboard {
         cScales.addYAxesData(linearAxes);
         options.setScales(cScales);
 
-        Title title = new Title();
-        title.setDisplay(true);
-        title.setText("Bar Chart");
-        options.setTitle(title);
+		/*
+		 * Title title = new Title(); title.setDisplay(true); title.setText("Ausgaben");
+		 * title.setFontSize(24); options.setTitle(title);
+		 */
 
-        Legend legend = new Legend();
-        legend.setDisplay(true);
-        legend.setPosition("top");
-        LegendLabel legendLabels = new LegendLabel();
-        legendLabels.setFontStyle("italic");
-        legendLabels.setFontColor("#2980B9");
-        legendLabels.setFontSize(24);
-        legend.setLabels(legendLabels);
-        options.setLegend(legend);
+		
+		  Legend legend = new Legend(); legend.setDisplay(true);
+		  legend.setPosition("top"); LegendLabel legendLabels = new LegendLabel();
+		  legendLabels.setFontStyle("italic"); legendLabels.setFontColor("#2980B9");
+		  legendLabels.setFontSize(12); legend.setLabels(legendLabels);
+		  options.setLegend(legend);
+		 
 
         // disable animation
         Animation animation = new Animation();

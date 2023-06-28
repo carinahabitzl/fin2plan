@@ -5,17 +5,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
                 
-	<html xmlns="http://www.w3.org/1999/xhtml" 
-			xmlns:h="http://java.sun.com/jsf/html" 
-			xmlns:f="http://java.sun.com/jsf/core" 
-			xmlns:ui="http://java.sun.com/jsf/facelets" 
-			xmlns:p="http://primefaces.org/ui">
-                
-                
-		<ui:define name="header">Upload</ui:define>
-		
-		
-		<h1>Upload</h1>
-				
-	</html>
+	<p style="font-size:20px;">Laden Sie hier eine CSV-Datei mit Ihren Transaktionen hoch,
+	indem Sie auf "Datei auswählen" klicken oder ziehen Sie die Datei einfach per Drag &amp; Drop.</p>
+	
+	<p:fileUpload mode="advanced" 
+				 dragDropSupport="true" 
+				 allowTypes="/(\.|\/)(csv)$/"
+				 label="Datei auswählen"
+				 uploadLabel="Hochladen"
+				 cancelLabel="Verwerfen"
+				 invalidFileMessage="Ungültiger Dateityp"/>
+
 </ui:composition>
