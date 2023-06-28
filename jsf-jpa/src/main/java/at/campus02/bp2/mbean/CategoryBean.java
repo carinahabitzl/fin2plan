@@ -53,8 +53,6 @@ public class CategoryBean {
 		transaction.commit();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Die Kategorie " + newCategory.getName() + " wurde gespeichert"));
         newCategory = new Category();
-        partnerBean.updatePartnerCategories(newCategory);
-        
 	}
 	
 	public List<Category> getCategoryList() {
@@ -98,6 +96,8 @@ public class CategoryBean {
                 transaction.commit();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Kategorie wurde bearbeitet."));
                 partnerBean.updatePartnerCategories(categoryToEdit);
+                //this.setCategoryList(this.getCategoryList());
+                //partnerBean.setPartnerList(partnerBean.getPartnerList());
                 
             } else {
                 transaction.rollback();
