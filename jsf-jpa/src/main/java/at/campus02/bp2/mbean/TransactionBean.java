@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import at.campus02.bp2.model.Category;
 import at.campus02.bp2.model.Partner;
 import at.campus02.bp2.model.Transaction;
 import at.campus02.bp2.utils.EntityManagerFactoryProvider;
@@ -96,4 +97,28 @@ public class TransactionBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Löschen der Transaction: " + e.getMessage()));
         }
     }
+	
+	public void updateTransactionPartners(Partner updatedPartner) {
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        try {
+            entityTransaction.begin();
+
+            List<Transaction> transactionsToUpdate = entityManager.createQuery("SELECT t FROM Transaction t WHERE t.partner = :partner", Transaction.class)
+                    .setParameter("partner", updatedPartner)
+                    .getResultList();
+
+            for (Transaction transaction : transactionsToUpdate) {
+                transaction.setPartner(updatedPartner);
+                entityManager.merge(transaction);
+            }
+
+            entityTransaction.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Partner wurde bei Transaktionen aktualisiert."));
+        } catch (Exception e) {
+            entityTransaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Aktualisieren der Partner bei Transaktionen: " + e.getMessage()));
+        }
+    }
+	
 }

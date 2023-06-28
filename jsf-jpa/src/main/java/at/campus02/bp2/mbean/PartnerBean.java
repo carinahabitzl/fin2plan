@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -73,8 +74,34 @@ public class PartnerBean {
 		this.newPartner = newPartner;
 	}
 	
-	public void editPartner(Partner partner) {		
-	}
+	public void editPartner(Partner partner) {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            // Partner aus der Datenbank laden
+            Partner partnerToEdit = entityManager.find(Partner.class, partner.getId());
+
+            if (partnerToEdit != null) {
+                // Partner aktualisieren
+                partnerToEdit.setName(partner.getName());
+                //partnerToEdit.setType(partner.getType());
+
+                entityManager.merge(partnerToEdit); // Partner aktualisieren
+                transaction.commit();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Partner wurde bearbeitet."));
+                transactionBean.updateTransactionPartners(partnerToEdit);
+                
+            } else {
+                transaction.rollback();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Partner konnte nicht gefunden werden."));
+            }
+        } catch (Exception e) {
+            transaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Bearbeiten des Partners: " + e.getMessage()));
+        }
+    }
 	
 	public void deletePartner(Partner partner) {
         EntityTransaction transaction = entityManager.getTransaction();
@@ -98,4 +125,41 @@ public class PartnerBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Löschen des Partners: " + e.getMessage()));
         }
     }
+	
+	public void updatePartnerCategories(Category updatedCategory) {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            List<Partner> partnersToUpdate = entityManager.createQuery("SELECT p FROM Partner p WHERE p.category = :category", Partner.class)
+                    .setParameter("category", updatedCategory)
+                    .getResultList();
+
+            for (Partner partner : partnersToUpdate) {
+                partner.setCategory(updatedCategory);
+                entityManager.merge(partner);
+            }
+
+            transaction.commit();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Kategorie wurde bei Partnern aktualisiert."));
+        } catch (Exception e) {
+            transaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Aktualisieren der Kategorie bei Partnern: " + e.getMessage()));
+        }
+    }
+	
+	
+	@ManagedProperty(value="#{transactionBean}")
+    private TransactionBean transactionBean;
+
+	public TransactionBean getTransactionBean() {
+		return transactionBean;
+	}
+
+	public void setTransactionBean(TransactionBean transactionBean) {
+		this.transactionBean = transactionBean;
+	}
+	
+	
 }

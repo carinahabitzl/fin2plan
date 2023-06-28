@@ -14,7 +14,7 @@
 	</p:fieldset>
 
 	<p:dataTable id="categoryList" value="#{categoryBean.categoryList}" var="category" editable="true">					
-		<p:ajax event="rowEdit" update="categoryList"/>
+		<p:ajax event="rowEdit" listener="#{categoryBean.editCategory(category)}" update="categoryList"/>
 		<p:ajax event="rowEditCancel" update="categoryList"/>
 		
 		<p:column headerText="Kategorie-Nr">

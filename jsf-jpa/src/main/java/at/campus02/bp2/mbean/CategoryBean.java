@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -52,6 +53,7 @@ public class CategoryBean {
 		transaction.commit();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Die Kategorie " + newCategory.getName() + " wurde gespeichert"));
         newCategory = new Category();
+        partnerBean.updatePartnerCategories(newCategory);
         
 	}
 	
@@ -78,8 +80,34 @@ public class CategoryBean {
         this.categoryTypeList = categoryTypeList;
     }
 	
-	public void editCategory(Category category) {		
-	}
+    public void editCategory(Category category) {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            // Kategorie aus der Datenbank laden
+            Category categoryToEdit = entityManager.find(Category.class, category.getId());
+
+            if (categoryToEdit != null) {
+                // Kategorie aktualisieren
+                categoryToEdit.setName(category.getName());
+                categoryToEdit.setType(category.getType());
+
+                entityManager.merge(categoryToEdit); // Kategorie aktualisieren
+                transaction.commit();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Kategorie wurde bearbeitet."));
+                partnerBean.updatePartnerCategories(categoryToEdit);
+                
+            } else {
+                transaction.rollback();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Kategorie konnte nicht gefunden werden."));
+            }
+        } catch (Exception e) {
+            transaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Bearbeiten der Kategorie: " + e.getMessage()));
+        }
+    }
 	
 	public void deleteCategory(Category category) {
         EntityTransaction transaction = entityManager.getTransaction();
@@ -103,4 +131,18 @@ public class CategoryBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Löschen der Kategorie: " + e.getMessage()));
         }
     }
+	
+	@ManagedProperty(value="#{partnerBean}")
+    private PartnerBean partnerBean;
+
+	public PartnerBean getPartnerBean() {
+		return partnerBean;
+	}
+	public void setPartnerBean(PartnerBean partnerBean) {
+		this.partnerBean = partnerBean;
+	}
+	
+	
+	
+	
 }

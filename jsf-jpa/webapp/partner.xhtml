@@ -14,7 +14,7 @@
 	</p:fieldset>
 
 	<p:dataTable id="partnerList" value="#{partnerBean.partnerList}" var="partner" editable="true">
-		<p:ajax event="rowEdit" update="partnerList"/>
+		<p:ajax event="rowEdit" listener="#{partnerBean.editPartner(partner)}" update="partnerList"/>
 		<p:ajax event="rowEditCancel" update="partnerList"/>
 		
 		<p:column headerText="Partner-Nr">
