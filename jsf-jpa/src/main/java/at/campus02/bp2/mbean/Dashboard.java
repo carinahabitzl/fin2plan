@@ -42,6 +42,7 @@ public class Dashboard {
 
 	private EntityManager entityManager;
 	private List<Transaction> transactionList;
+	private List<String> colors;
 	
 	private double totalIncome;
 	private double totalExpences;
@@ -62,6 +63,26 @@ public class Dashboard {
 		createLineModel();
 		createBarModel();
 		createPieModel();
+		colors = new ArrayList<>();
+	    colors.add("rgba(255, 0, 0, 1)");
+	    colors.add("rgba(255, 165, 0, 1)");
+	    colors.add("rgba(255, 255, 0, 1)");
+	    colors.add("rgba(0, 128, 0, 1)");
+	    colors.add("rgba(0, 128, 128, 1)");
+	    colors.add("rgba(0, 0, 255, 1)");
+	    colors.add("rgba(75, 0, 130, 1)");
+	    colors.add("rgba(238, 130, 238, 1)");
+	    colors.add("rgba(255, 99, 71, 1)");
+	    colors.add("rgba(255, 140, 0, 1)");
+	    colors.add("rgba(218 ,165 ,32 ,1 )");
+	    colors.add("rgba(184 ,134 ,11 ,1 )");
+	    colors.add("rgba(154 ,205 ,50 ,1 )");
+	    colors.add("rgba(34 ,139 ,34 ,1 )");
+	    colors.add("rgba(107 ,142 ,35 ,1 )");
+	    colors.add("rgba(128 ,128 ,0 ,1 )");
+	    colors.add("rgba(85 ,107 ,47 ,1 )");
+	    colors.add("rgba(240 ,230 ,140 ,1 )");
+	    colors.add("rgba(189 ,183 ,107)");
 	}
 
 	@PreDestroy
@@ -108,19 +129,6 @@ public class Dashboard {
 		return getTotalIncome() - getTotalExpenses();
 	}
 	
-	// Funktioniert nicht, wenn in "createDonutModel" aufgerufen
-	/*
-	 * private HashMap<String, Double> totalExpencesPerCategory() { HashMap<String,
-	 * Double> result = new HashMap<>();
-	 * 
-	 * for (Transaction t : transactionList) { if
-	 * (t.getCategory().getType().equals(CategoryType.EXPENSE)) { String category =
-	 * t.getCategory().getName(); double value = result.get(category); if
-	 * (!result.containsKey(category)) { result.put(category, value); } else {
-	 * result.put(category, value + t.getAmount()); } } }
-	 * 
-	 * return result; }
-	 */
 	
 	public void createDonutModel() {
         donutModel = new DonutChartModel();
@@ -146,12 +154,7 @@ public class Dashboard {
     			values.add(sum);
         }
         dataSet.setData(values);
-
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(255, 99, 132)");
-        bgColors.add("rgb(54, 162, 235)");
-        bgColors.add("rgb(255, 205, 86)");
-        dataSet.setBackgroundColor(bgColors);
+        dataSet.setBackgroundColor(colors);
 
         data.addChartDataSet(dataSet);
         List<String> labels = new ArrayList<>();
@@ -199,12 +202,7 @@ public class Dashboard {
         }
         
         dataSet.setData(values);
-
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(255, 99, 132)");
-        bgColors.add("rgb(54, 162, 235)");
-        bgColors.add("rgb(255, 205, 86)");
-        dataSet.setBackgroundColor(bgColors);
+        dataSet.setBackgroundColor(colors);
 
         data.addChartDataSet(dataSet);
         List<String> labels = new ArrayList<>();
@@ -272,10 +270,6 @@ public class Dashboard {
 
         //Options
         LineChartOptions options = new LineChartOptions();
-		/*
-		 * Title title = new Title(); title.setDisplay(true);
-		 * title.setText("Einnahmen"); title.setFontSize(24); options.setTitle(title);
-		 */
 
         lineModel.setOptions(options);
         lineModel.setData(data);
@@ -365,11 +359,6 @@ public class Dashboard {
         linearAxes.setTicks(ticks);
         cScales.addYAxesData(linearAxes);
         options.setScales(cScales);
-
-		/*
-		 * Title title = new Title(); title.setDisplay(true); title.setText("Ausgaben");
-		 * title.setFontSize(24); options.setTitle(title);
-		 */
 
 		
 		  Legend legend = new Legend(); legend.setDisplay(true);
