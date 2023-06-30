@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
@@ -72,7 +73,35 @@ public class TransactionBean {
 		this.newTransaction = newTransaction;
 	}
 	
-	public void editTransaction(Transaction transaction) {		
+	public void editTransaction(Transaction transaction) {	
+		
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        try {
+            entityTransaction.begin();
+
+            // Transaktion aus der Datenbank laden
+            Transaction transactionToEdit = entityManager.find(Transaction.class, transaction.getId());
+
+            if (transactionToEdit != null) {
+                // Transaktion aktualisieren
+                transactionToEdit.setDescription(transaction.getDescription());
+                transactionToEdit.setPartner(transaction.getPartner());
+
+                entityManager.merge(transactionToEdit); // Partner aktualisieren
+                entityTransaction.commit();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Transaktion wurde bearbeitet."));
+                dashboard.createEntityManager();
+                
+            } else {
+                entityTransaction.rollback();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Transaktion konnte nicht gefunden werden."));
+            }
+        } catch (Exception e) {
+            entityTransaction.rollback();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Bearbeiten des Partners: " + e.getMessage()));
+        }
+		
 	}
 	
 	public void deleteTransaction(Transaction transaction) {
@@ -154,5 +183,16 @@ public class TransactionBean {
 	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Aktualisieren der Transaktionen: " + e.getMessage()));
 	    }
 	}
+	
+	@ManagedProperty(value="#{dashboard}")
+    private Dashboard dashboard;
+
+	public Dashboard getDashboard() {
+		return dashboard;
+	}
+	public void setDashboard(Dashboard dashboard) {
+		this.dashboard = dashboard;
+	}
+	
 	
 }

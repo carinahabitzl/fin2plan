@@ -98,6 +98,7 @@ public class CategoryBean {
                                 
                 partnerBean.updatePartnerCategories(categoryToEdit);
                 transactionBean.updateTransactionCategories(categoryToEdit);
+                dashboard.createEntityManager();
                 //this.setCategoryList(this.getCategoryList());
                 //partnerBean.setPartnerList(partnerBean.getPartnerList());
                 
@@ -152,6 +153,16 @@ public class CategoryBean {
 	}
 	public void setTransactionBean(TransactionBean transactionBean) {
 		this.transactionBean = transactionBean;
+	}
+	
+	@ManagedProperty(value="#{dashboard}")
+    private Dashboard dashboard;
+
+	public Dashboard getDashboard() {
+		return dashboard;
+	}
+	public void setDashboard(Dashboard dashboard) {
+		this.dashboard = dashboard;
 	}
 	
 	

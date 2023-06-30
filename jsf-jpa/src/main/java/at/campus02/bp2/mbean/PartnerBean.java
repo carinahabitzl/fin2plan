@@ -92,6 +92,7 @@ public class PartnerBean {
                 transaction.commit();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Partner wurde bearbeitet."));
                 transactionBean.updateTransactionPartners(partnerToEdit);
+                dashboard.createEntityManager();
                 
             } else {
                 transaction.rollback();
@@ -161,5 +162,14 @@ public class PartnerBean {
 		this.transactionBean = transactionBean;
 	}
 	
+	@ManagedProperty(value="#{dashboard}")
+    private Dashboard dashboard;
+
+	public Dashboard getDashboard() {
+		return dashboard;
+	}
+	public void setDashboard(Dashboard dashboard) {
+		this.dashboard = dashboard;
+	}
 	
 }
