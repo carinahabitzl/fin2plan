@@ -4,7 +4,6 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
-
 	
 	<p:fieldset legend="Transaktion anlegen" style="margin-bottom:20px; margin-top:20px;">	
 		<p:datePicker style="margin-right:20px" placeholder="Datum" id="date" label="Datum" type="dd.mm.yyyy" value="${transactionBean.newTransaction.date}"/>
@@ -40,7 +39,7 @@
 		<p:column headerText="Betrag" filterBy="#{transaction.amount}">
 			<p:cellEditor>
 				<f:facet name="output">
-					<div style="text-align: right; padding-right: 130px;">
+					<div style="text-align: right; padding-right: 90px;">
 						<h:outputText value="#{transaction.amount}" style="text-align: right; color: #{transaction.partner.category.type == 'EXPENSE' ? 'red' : 'green'};" >
 							<f:convertNumber pattern="€ #,##0.00"/>
 						</h:outputText> 
@@ -68,7 +67,7 @@
 					<h:outputText value="#{transaction.partner.name}"/>
 				</f:facet>
 				<f:facet name="input">
-					<p:selectOneMenu value="${transactionBean.newTransaction.partner}" converter="#{partnerConverter}" >
+					<p:selectOneMenu value="${transaction.partner}" converter="#{partnerConverter}" >
 						<f:selectItems value="#{partnerBean.partnerList}" var="partner" itemLabel="#{partner.name}" itemValue="#{partner}" />
 					</p:selectOneMenu>				
 				</f:facet>
@@ -80,7 +79,7 @@
 					<h:outputText value="#{transaction.partner.category.name}"/>
 				</f:facet>
 				<f:facet name="input">
-					<p:selectOneMenu value="${partnerBean.newPartner.category}" converter="#{categoryConverter}" >
+					<p:selectOneMenu value="${partnerBean.newPartner.category}" converter="#{categoryConverter}" disabled="#{true}" >
 						<f:selectItems value="#{categoryBean.categoryList}" var="category" itemLabel="#{category.name}" itemValue="#{category}" />
 					</p:selectOneMenu>
 				</f:facet>

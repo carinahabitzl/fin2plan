@@ -86,7 +86,7 @@ public class PartnerBean {
             if (partnerToEdit != null) {
                 // Partner aktualisieren
                 partnerToEdit.setName(partner.getName());
-                //partnerToEdit.setType(partner.getType());
+                partnerToEdit.setCategory(partner.getCategory());
 
                 entityManager.merge(partnerToEdit); // Partner aktualisieren
                 transaction.commit();

@@ -36,11 +36,11 @@
 					<h:outputText value="#{category.type}"/>
 				</f:facet>
 				<f:facet name="input">
-					<p:selectOneMenu value="${categoryBean.newCategory.type}">
+					<p:selectOneMenu value="${category.type}">
 			            <f:selectItems value="#{categoryBean.categoryTypeList}" var="type" itemLabel="#{type}" itemValue="#{type}" />
 			        </p:selectOneMenu>
 				</f:facet>
-			</p:cellEditor>	
+			</p:cellEditor>
 		</p:column>
 		<p:column headerText="Aktionen" styleClass="actions">
 			<p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row"/>

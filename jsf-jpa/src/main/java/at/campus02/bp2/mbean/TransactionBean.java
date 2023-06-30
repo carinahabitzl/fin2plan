@@ -121,4 +121,38 @@ public class TransactionBean {
         }
     }
 	
+	public void updateTransactionCategories(Category updatedCategory) {
+	    EntityTransaction entityTransaction = entityManager.getTransaction();
+
+	    try {
+	        entityTransaction.begin();
+
+	        // 1. Alle Partner finden, die die aktualisierte Kategorie verwenden
+	        List<Partner> partnersToUpdate = entityManager.createQuery("SELECT p FROM Partner p WHERE p.category = :category", Partner.class)
+	                .setParameter("category", updatedCategory)
+	                .getResultList();
+
+	        // 2. Für jeden Partner die Transaktionen finden und aktualisieren
+	        for (Partner partner : partnersToUpdate) {
+	            List<Transaction> transactionsToUpdate = entityManager.createQuery("SELECT t FROM Transaction t WHERE t.partner = :partner", Transaction.class)
+	                    .setParameter("partner", partner)
+	                    .getResultList();
+
+	            for (Transaction transaction : transactionsToUpdate) {
+	                // 3. Transaktion aktualisieren, falls sie die geänderte Kategorie verwendet
+	                if (transaction.getPartner().getCategory().equals(updatedCategory)) {
+	                    transaction.getPartner().setCategory(updatedCategory);
+	                    entityManager.merge(transaction);
+	                }
+	            }
+	        }
+
+	        entityTransaction.commit();
+	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Transaktionen wurden aktualisiert."));
+	    } catch (Exception e) {
+	        entityTransaction.rollback();
+	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler", "Fehler beim Aktualisieren der Transaktionen: " + e.getMessage()));
+	    }
+	}
+	
 }

@@ -95,7 +95,9 @@ public class CategoryBean {
                 entityManager.merge(categoryToEdit); // Kategorie aktualisieren
                 transaction.commit();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erfolg", "Kategorie wurde bearbeitet."));
+                                
                 partnerBean.updatePartnerCategories(categoryToEdit);
+                transactionBean.updateTransactionCategories(categoryToEdit);
                 //this.setCategoryList(this.getCategoryList());
                 //partnerBean.setPartnerList(partnerBean.getPartnerList());
                 
@@ -142,7 +144,15 @@ public class CategoryBean {
 		this.partnerBean = partnerBean;
 	}
 	
-	
+	@ManagedProperty(value="#{transactionBean}")
+    private TransactionBean transactionBean;
+
+	public TransactionBean getTransactionBean() {
+		return transactionBean;
+	}
+	public void setTransactionBean(TransactionBean transactionBean) {
+		this.transactionBean = transactionBean;
+	}
 	
 	
 }
