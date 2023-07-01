@@ -64,7 +64,7 @@ public class Dashboard {
 		createBarModel();
 		createPieModel();
 		colors = new ArrayList<>();
-	    colors.add("rgba(255, 0, 0, 1)");
+	    //colors.add("rgba(255, 0, 0, 1)");
 	    colors.add("rgba(255, 165, 0, 1)");
 	    colors.add("rgba(255, 255, 0, 1)");
 	    colors.add("rgba(0, 128, 0, 1)");
