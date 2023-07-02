@@ -23,7 +23,7 @@
 		<param-value>resources.application</param-value>
 	</context-param>
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>login.xhtml</welcome-file>
 	</welcome-file-list>
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
