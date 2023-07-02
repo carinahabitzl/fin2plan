@@ -8,13 +8,13 @@
         <div class="flex">
 	        <div class="grid">
 	            <p:card styleClass="card">
-		        		<f:facet name="title">Einkommen</f:facet>
+		        		<f:facet name="title">Einzahlungen</f:facet>
 		        		<h:outputText  value="#{dashboard.totalIncome}">
 		        			<f:convertNumber pattern="€ #,##0.00"/>
 		        		</h:outputText>
 		        </p:card>
 		         <p:card styleClass="card">
-		        		<f:facet name="title">Ausgaben</f:facet>
+		        		<f:facet name="title">Auszahlungen</f:facet>
 		        		<h:outputText value="#{dashboard.totalExpenses}">
 		        			<f:convertNumber pattern="€ #,##0.00"/>
 		        		</h:outputText>

@@ -99,8 +99,6 @@ public class CategoryBean {
                 partnerBean.updatePartnerCategories(categoryToEdit);
                 transactionBean.updateTransactionCategories(categoryToEdit);
                 dashboard.createEntityManager();
-                //this.setCategoryList(this.getCategoryList());
-                //partnerBean.setPartnerList(partnerBean.getPartnerList());
                 
             } else {
                 transaction.rollback();
